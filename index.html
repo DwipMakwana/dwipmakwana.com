@@ -68,7 +68,7 @@
     .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); text-decoration: none; }
     .btn-secondary { border: 1px solid var(--border); color: var(--text); padding: 13px 30px; border-radius: 30px; font-weight: 600; font-size: 0.95rem; transition: border-color .2s, transform .2s; }
     .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
-    .hero-scroll { position: absolute; bottom: 32px; left: 0; right: 0; text-align: center; color: var(--accent); font-family: 'Fira Code', monospace; font-size: 0.82rem; letter-spacing: 2px; animation: hud-pulse 2.2s ease-in-out infinite; z-index: 10; pointer-events: none; }    /* ══════════════ ABOUT ══════════════ */
+    .hero-scroll { position: absolute; align-self: center; bottom: 32px; left: 0; right: 0; text-align: center; color: var(--accent); font-family: 'Fira Code', monospace; font-size: 0.82rem; letter-spacing: 2px; animation: hud-pulse 2.2s ease-in-out infinite; z-index: 10; pointer-events: none; }    /* ══════════════ ABOUT ══════════════ */
     @keyframes hud-pulse { 0%, 100% { opacity: 0.2; transform: translateY(0); } 50% { opacity: 1; transform: translateY(6px); } }
     #about .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
     .about-text p { color: var(--muted); margin-bottom: 16px; }
@@ -296,6 +296,32 @@
       #contact .contact-card { padding: 36px 20px; }
       #skills .skills-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
+
+      /* ── MOBILE NAV: smooth transition base ── */
+      nav {
+        transition: height 0.3s ease, background 0.3s ease,
+                    border-color 0.3s ease, padding 0.3s ease;
+      }
+      /* Scrolled state — shrinks + goes transparent */
+      nav.scrolled {
+        height: 44px;
+        background: rgba(10,10,10,0.35);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom-color: rgba(255,255,255,0.03);
+      }
+      nav.scrolled .nav-logo {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        transition: font-size 0.3s ease, opacity 0.3s ease;
+      }
+      nav.scrolled .hamburger span {
+        background: rgba(255,255,255,0.45);
+        transition: background 0.3s ease;
+      }
+      /* mobile menu top tracks nav height */
+      .mobile-menu { transition: top 0.3s ease; }
+      .mobile-menu.scrolled { top: 44px; }
     }
     @media (max-width: 480px) {
       .proj-title { font-size: 1.2rem; }
@@ -455,6 +481,7 @@
     .proj-card-wrap[data-project="gow"]    { border-top: 2px solid #8a8a9a; }
     .proj-card-wrap[data-project="purple"] { border-top: 2px solid #a78bfa; }
     .proj-card-wrap[data-project="mv"]     { border-top: 2px solid #2dd4bf; }
+    .proj-card-wrap[data-project="cyphernet"] { border-top: 2px solid #e8b84b; }
 
     /* ── NAV LOGO: display font ── */
     .nav-logo { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 1px; }
@@ -592,7 +619,7 @@
       </div>
 
       <div class="proj-links">
-        <a href="https://www.youtube.com/watch?v=hdcJdnc6eVw" target="_blank" class="proj-link">▶ YouTube Trailer</a>
+        <a href="https://www.youtube.com/watch?v=hdcJdnc6eVw" target="_blank" class="proj-link">YouTube Trailer</a>
         <a href="https://play.google.com/store/apps/details?id=com.DwipMakwana.CrossyRailroad" target="_blank" class="proj-link">Google Play</a>
         <a href="https://dwipmakwana.itch.io/crossy-railroad" target="_blank" class="proj-link">Itch.io</a>
         <!--<a href="https://github.com/DwipMakwana/Crossy-Railroad" target="_blank" class="proj-link">GitHub →</a>-->
@@ -779,13 +806,10 @@ FXHandler.instance.<span class="fn">BladeHeavyAttackCamera</span>();
 
   <!-- ══ PURPLE ══ -->
   <div class="proj-card-wrap reveal" data-project="purple">
-    <!--
-      MEDIA SLOT — Purple
-      Best: screenshot of the two characters (Blue + Red) in-game, or the merge moment
-      <img src="purple-screenshot.jpg" alt="Purple — co-op puzzle game" />
-    -->
     <div class="proj-media media-reveal">
-      <img src="purple-screenshot.jpg" alt="Purple — co-op puzzle game" />
+      <video autoplay muted loop playsinline class="mechanic-video">
+        <source src="purple-loop.mp4" type="video/mp4">
+      </video>
     </div>
 
     <div class="proj-content">
@@ -804,7 +828,7 @@ FXHandler.instance.<span class="fn">BladeHeavyAttackCamera</span>();
       </div>
 
       <div class="proj-links">
-        <a href="https://www.youtube.com/watch?v=29wyZlcTRI" target="_blank" class="proj-link">▶ YouTube Trailer</a>
+        <a href="https://www.youtube.com/watch?v=29wyZlcTRI" target="_blank" class="proj-link">YouTube Trailer</a>
       </div>
 
       <div class="breakdown">
@@ -844,7 +868,9 @@ FXHandler.instance.<span class="fn">BladeHeavyAttackCamera</span>();
       <img src="mv-screenshot.jpg" alt="Monument Valley — orthographic illusion" />
     -->
     <div class="proj-media media-reveal">
-      <img src="mv-screenshot.jpg" alt="Monument Valley — orthographic illusion" />
+      <video autoplay muted loop playsinline class="mechanic-video">
+        <source src="mv-loop.mp4" type="video/mp4">
+      </video>
     </div>
 
     <div class="proj-content">
@@ -863,7 +889,7 @@ FXHandler.instance.<span class="fn">BladeHeavyAttackCamera</span>();
       </div>
 
       <div class="proj-links">
-        <a href="https://www.youtube.com/watch?v=TGjYiZt3Xzk" target="_blank" class="proj-link">▶ YouTube Playthrough</a>
+        <a href="https://www.youtube.com/watch?v=TGjYiZt3Xzk" target="_blank" class="proj-link">YouTube Playthrough</a>
         <a href="https://github.com/DwipMakwana/Monument-Valley-Clone" target="_blank" class="proj-link">GitHub →</a>
       </div>
 
@@ -944,6 +970,103 @@ DOTween.Sequence().<span class="fn">SetDelay</span>(<span class="num">3</span>)
       </div>
     </div>
   </div><!-- /Monument Valley -->
+
+  <!-- ══ CYPHERNET ══ -->
+  <div class="proj-card-wrap reveal" data-project="cyphernet">
+
+    <!-- TOP OF CARD: card flat-lay or fan shot -->
+    <div class="proj-media media-reveal">
+      <img src="cyphernet-cards.jpg" alt="CYPHERNET card flat-lay" style="width:100%;height:300px;object-fit:cover;display:block;" />
+    </div>
+
+    <div class="proj-content">
+      <div class="proj-tag">Published · Steam Workshop · Physical + Digital · Board Game</div>
+      <h3 class="proj-title">CYPHERNET</h3>
+      <p class="proj-desc">A cooperative bluffing card game designed, illustrated, printed, and published entirely in-house by a team of five. Players act as an AI Hivemind decrypting rebel communications — playing numbered cards in ascending order without revealing their hand. Every element was owned by the team: game design, balance, card art, rulebook, physical print run, and Steam Workshop upload.</p>
+      <div class="proj-tech">
+        <span class="tech-badge">Game Design</span><span class="tech-badge">Cooperative Mechanics</span>
+        <span class="tech-badge">Bluffing Systems</span><span class="tech-badge">Card Balancing</span>
+        <span class="tech-badge">Physical Print</span><span class="tech-badge">Steam Workshop</span>
+        <span class="tech-badge">Rulebook Authoring</span><span class="tech-badge">Team of 5</span>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><div class="metric-val">5</div><div class="metric-lbl">Creators</div></div>
+        <div class="metric"><div class="metric-val">7</div><div class="metric-lbl">Rounds</div></div>
+        <div class="metric"><div class="metric-val">100</div><div class="metric-lbl">Card Deck</div></div>
+        <div class="metric"><div class="metric-val">~40<span style="font-size:0.7em">min</span></div><div class="metric-lbl">Play Time</div></div>
+      </div>
+
+      <div class="proj-links">
+        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3078031044" target="_blank" class="proj-link">Steam Workshop</a>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-title">Design Deep Dive</div>
+
+        <div class="accordion">
+          <button class="accordion-header" onclick="toggleAccordion(this)">Core Mechanic — Silent Coordination <span class="accordion-icon">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <!-- Board top-view with tokens on Low/Mid/High zones -->
+            <img src="cyphernet-board.jpg"
+                 alt="CYPHERNET board with tokens placed"
+                 style="width:100%;border-radius:10px;margin-bottom:8px;display:block;" />
+            <p class="media-caption">Players signal hand range via token placement — no numbers spoken</p>
+            <p>The central design challenge was building tension through <strong>restricted communication</strong>. Players hold numbered cards (1–100) and must play them in ascending order — but cannot say or signal their actual numbers. The only legal communication is placing a token in the <strong>Low / Mid / High</strong> zone on the board.</p>
+            <p>This forces players to read timing, hesitation, and energy rather than explicit information — creating genuine group psychology pressure with no hidden traitor or adversarial role. Each round adds one more card per player, deliberately scaling difficulty so early rounds teach the signal language and late rounds force real risk management.</p>
+            <div class="sys-diagram">
+<span class="node">Token placed in zone</span> <span class="arrow">──→</span> <span class="node">Group reads intent</span> <span class="arrow">──→</span> <span class="node">Cards played ascending</span>
+<span class="arrow">↓</span>
+<span class="node">Out-of-order card</span> <span class="arrow">──→</span> <span class="node">Lose a life</span> <span class="arrow">──→</span> <span class="node">Round resets</span></div>
+          </div></div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header" onclick="toggleAccordion(this)">Re-Authenticate Encryption — Stalemate Resolution <span class="accordion-icon">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <p>When two players both signal the same zone and neither commits, a deadlock forms. Rather than forcing a random guess, we designed <strong>Re-Authenticate Encryption</strong> — a structured minigame for exactly two players in stalemate.</p>
+            <p>Both players set their hands face-down and draw a fresh card each, resolving <em>that</em> card via Low/Mid/High. The result establishes a temporary ordering — players then confidently reveal and play their stalled cards in the correct sequence. A failure state turned into a skillful recovery mechanic.</p>
+            <p>Key constraint: <strong>only two players</strong> can participate per Re-Authenticate. If three are deadlocked, someone must commit — a deliberate second pressure layer on top of the stalemate itself.</p>
+            <div class="sys-diagram">
+<span class="node">2-player stalemate</span> <span class="arrow">──→</span> <span class="node">Hands face-down</span> <span class="arrow">──→</span> <span class="node">Draw fresh card each</span>
+<span class="arrow">↓</span>
+<span class="node">Resolve via Low/Mid/High</span> <span class="arrow">──→</span> <span class="node">Reveal stalled cards in order</span> <span class="arrow">──→</span> <span class="node">Continue round</span></div>
+          </div></div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header" onclick="toggleAccordion(this)">Wildcard System &amp; Vote Mechanic <span class="accordion-icon">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <!-- Wildcard fronts side by side — AI and Human faction -->
+            <img src="cyphernet-wildcards.jpg"
+                 alt="CYPHERNET AI and Human wildcard fronts"
+                 style="width:100%;border-radius:10px;margin-bottom:8px;display:block;" />
+            <p class="media-caption">7 Human wildcards (penalties) vs 3 AI wildcards (advantages) — drawn from a separate pile</p>
+            <p>Two wildcard factions — <strong>7 Human</strong> (penalties/disruptions) and <strong>3 AI</strong> (advantages) — sit in a separate draw pile. Available wildcards scale with round number, so early rounds give fewer options and later rounds open up more strategic variance.</p>
+            <p>To draw, the entire group must <strong>vote using tokens</strong> on the Yes/No section of the board. Majority wins. This creates a second layer of real-time group negotiation — spending a wildcard too early wastes it, holding too long leaves the team exposed with no safety net.</p>
+            <div class="sys-diagram">
+<span class="node">Group votes Yes/No</span> <span class="arrow">──→</span> <span class="node">Majority wins</span> <span class="arrow">──→</span> <span class="node">Draw wildcard</span>
+<span class="arrow">↓</span>
+<span class="node">AI card</span> <span class="arrow">──→</span> <span class="node">Advantage (e.g. discard lowest)</span>
+<span class="node">Human card</span> <span class="arrow">──→</span> <span class="node">Penalty / disruption</span></div>
+          </div></div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header" onclick="toggleAccordion(this)">Full Production — Art, Print &amp; Publish <span class="accordion-icon">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            <!-- Group photo: team sitting around the board top-view -->
+            <img src="cyphernet-team.jpg"
+                 alt="Team designing CYPHERNET around the board"
+                 style="width:100%;border-radius:10px;margin-bottom:8px;display:block;" />
+            <p class="media-caption">The full team of five — every element designed, printed, and published in-house</p>
+            <p>CYPHERNET was built end-to-end with no external vendors or assets. The production pipeline covered every layer: game design and balance, card artwork (dark cyberpunk aesthetic — skulls, circuit motifs, faction iconography), physical board layout, life card design, a full printed rulebook, and a physical print run.</p>
+            <p>Published to <strong>Steam Workshop</strong> as a Tabletop Simulator mod for digital distribution. Every element — card backs, wildcard faction icons, board zones — was designed and executed by the team at <strong>George Brown College</strong>: Upmanyu Yavalkar, Dwip Makwana, Mayank Jain, Francisco Arbert, and Yash Mehrotra.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </div><!-- /proj-content -->
+  </div><!-- /CYPHERNET -->
 
   </div><!-- /proj-grid -->
 </section>
@@ -1257,7 +1380,7 @@ DOTween.Sequence().<span class="fn">SetDelay</span>(<span class="num">3</span>)
   <div class="contact-card reveal">
     <span class="section-label centered">Let's Talk</span>
     <h2 class="section-title" style="text-align:center;">Ready to build<br>something great?</h2>
-    <p style="color:var(--muted);text-align:center;">Actively looking for Gameplay Programmer and Tools Developer roles in Toronto, Montreal, Vancouver, or remote worldwide. If you're building something exciting, I'd love to hear about it.</p>
+    <p style="color:var(--muted);text-align:center;">Actively looking for Gameplay, Tools, AI, or Generalist roles in Toronto, Montreal, Vancouver, or remote worldwide. If you're building something exciting, I'd love to hear about it.</p>
     <div class="contact-links">
       <a href="/cdn-cgi/l/email-protection#dabeadb3aab7bbb1adbbb4bb9abdb7bbb3b6f4b9b5b7" class="contact-link">Email Me</a>
       <a href="https://linkedin.com/in/dwipmakwana" target="_blank" class="contact-link">LinkedIn</a>
@@ -1325,16 +1448,37 @@ DOTween.Sequence().<span class="fn">SetDelay</span>(<span class="num">3</span>)
     document.getElementById('hamburger').classList.remove('open');
   }
 
-  // ── Active nav highlight on scroll ──
+  // ── Unified scroll handler ──
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
+  const navEl    = document.querySelector('nav');
+  const mobileMenuEl = document.getElementById('mobileMenu');
+
   window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+
+    // Active nav link highlight
     let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    sections.forEach(s => { if (y >= s.offsetTop - 100) current = s.id; });
     navLinks.forEach(a => {
       a.classList.remove('active');
       if (a.getAttribute('href') === '#' + current) a.classList.add('active');
     });
+
+    // Hero scroll indicator fade
+    const scrollIndicator = document.querySelector('.hero-scroll');
+    if (scrollIndicator) scrollIndicator.style.opacity = y > 80 ? '0' : '';
+
+    // Mobile nav: shrink + transparent on scroll (mobile only)
+    if (window.innerWidth <= 768) {
+      if (y > 60) {
+        navEl.classList.add('scrolled');
+        mobileMenuEl.classList.add('scrolled');
+      } else {
+        navEl.classList.remove('scrolled');
+        mobileMenuEl.classList.remove('scrolled');
+      }
+    }
   });
 
   // ── Segmented skill bars: animate on scroll ──
@@ -1358,6 +1502,7 @@ DOTween.Sequence().<span class="fn">SetDelay</span>(<span class="num">3</span>)
     'gow':     'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(120,120,140,0.08) 0%, transparent 70%)',
     'purple':  'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(167,139,250,0.09) 0%, transparent 70%)',
     'mv':      'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(45,212,191,0.07) 0%, transparent 70%)',
+    'cyphernet':'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,184,75,0.07) 0%, transparent 70%)',
     'default': 'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(110,231,247,0.05) 0%, transparent 70%)'
   };
 
@@ -1390,10 +1535,7 @@ DOTween.Sequence().<span class="fn">SetDelay</span>(<span class="num">3</span>)
     if (el) resetObserver.observe(el);
   });
 
-  window.addEventListener('scroll', () => {
-  const scroll = document.querySelector('.hero-scroll');
-  if (scroll) scroll.style.opacity = window.scrollY > 80 ? '0' : '';
-  });
+
 </script>
 </body>
 </html>
